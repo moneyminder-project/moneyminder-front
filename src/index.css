@@ -5,8 +5,8 @@
     min-width: 525px;
 }
 
-/*Personalización de bootstrap*/
 
+/*Personalización de bootstrap*/
 .btn-primary {
     background-color: #FB8C00 !important;
     border-color: #E67E22 !important;
@@ -36,7 +36,6 @@
     right: auto !important;
     transform: none !important;
 }
-
 
 .dropdown-item {
     border-radius: 6px;
@@ -78,7 +77,6 @@
     min-width: 50%;
 }
 
-
 .appContainer {
     display: flex;
     flex-direction: column;
@@ -109,6 +107,7 @@
     position: relative;
     z-index: 1;
 }
+
 
 /*Estilos del subheader*/
 .subheaderStyle {
@@ -164,6 +163,7 @@
     color: #000;
 }
 
+
 /*Estilos del username para inicio en header derecha*/
 .userNameHeaderFormat {
     font-weight: bold;
@@ -190,6 +190,7 @@
     background-color: #b6dcc9;
 }
 
+
 /*Estilos de botones*/
 .btn-login {
     background-color: #2E8A75;
@@ -209,6 +210,7 @@
     display: inline-block;
 }
 
+
 /*Estilo para el botón del menú al final*/
 .btn-left-menu {
     --bs-btn-hover-color: #198754;
@@ -220,12 +222,14 @@
     --bs-btn-box-shadow: none;
 }
 
+
 /*Estilos para las secciones de los componentes*/
 .appSection {
     width: 95%;
     border-radius: 1rem;
     border: 2px solid #a3c6b4;
 }
+
 
 /*Estilos del input (texto, email, etc) para login, registro y demás*/
 .appInput {
@@ -244,6 +248,7 @@
     width: 300px;
 }
 
+
 /*Estilos tooltip personalizado para menu usuario*/
 .custom-tooltip {
     position: absolute;
@@ -257,7 +262,6 @@
     min-width: 235px;
     max-width: 90vw;
     background-color: #e3f1eb;
-;
 }
 
 .tooltip-arrow {
@@ -301,6 +305,7 @@
     background-color: #b6dcc9;
 }
 
+
 /*Estilos del swal */
 .swal2-popup-sm {
     font-size: 0.8rem;
@@ -323,12 +328,14 @@
     width: 110px;
 }
 
+
 /*Estilos tooltip*/
 .tooltip-custom-style {
     background-color: #b6dcc9 !important;
     border-radius: 7px !important;
     color: black !important;
 }
+
 
 /* Estilos de tablas */
 .appTable {
@@ -367,6 +374,7 @@
     font-weight: bold;
 }
 
+
 /*Estilos de filtros*/
 .filterDiv {
     flex: 1 1 25%;
@@ -375,6 +383,7 @@
     display: flex;
     align-items: center;
 }
+
 
 /* Input base */
 .filterInput {
@@ -425,6 +434,7 @@
     color: #6c757d;
 }
 
+
 /*Request styles*/
 .requestDiv {
     flex: 1 1 45%;
@@ -447,6 +457,7 @@
     width: 10rem;
     margin-right: 0.4rem;
 }
+
 
 /*Estilos de errores iniciales*/
 .errorInitialSection {
