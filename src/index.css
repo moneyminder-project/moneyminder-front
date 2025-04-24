@@ -2,7 +2,12 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.0;
     /*min-width: 800px;*/
-    min-width: 525px;
+    min-width: 450px;
+}
+
+html, body, #root {
+    margin: 0;
+    padding: 0;
 }
 
 
@@ -77,10 +82,13 @@
     min-width: 50%;
 }
 
+
+/*Contenedores*/
 .appContainer {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    overflow: hidden;
 }
 
 .appLogoSize {
@@ -90,6 +98,12 @@
 
 .titleFormat {
     font-size: 1.5rem;
+    font-weight: bold;
+    color: #2E8A75
+}
+
+.titleFormatSmall {
+    font-size: 1.3rem;
     font-weight: bold;
     color: #2E8A75
 }
@@ -151,10 +165,24 @@
     width: 115px;
 }
 
+.subheaderIndividualButtonOnlyIcon {
+    padding: 0.2rem;
+    font-size: 0.9rem;
+    border: none;
+    width: 35px;
+}
+
 .subheaderBackButton {
     padding: 0.1rem 0.4rem;
     font-size: 0.9rem;
     width: 90px;
+    background-color: transparent;
+}
+
+.subheaderBackButtonOnlyIcon {
+    padding: 0.1rem 0.4rem;
+    font-size: 0.9rem;
+    width: 35px;
     background-color: transparent;
 }
 
@@ -190,6 +218,90 @@
     background-color: #b6dcc9;
 }
 
+.menu-inner {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.mobile-menu-button {
+    background-color: #4AA891;
+    color: white;
+    border: none;
+    padding: 0.5rem 0.7rem;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 35px;
+    cursor: pointer;
+}
+
+.custom-tooltip {
+    left: auto;
+    right: 0;
+}
+
+.tooltip-arrow.left {
+    right: auto;
+    left: 12px;
+}
+
+.mobile-tooltip-menu {
+    position: absolute;
+    top: 125%;
+    left: -5px;
+    background-color: #e3f1eb; /* mismo que .menuColor */
+    border: 1px solid #a3c6b4; /* consistente con .appSection */
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    min-width: 210px;
+    padding: 0.3rem 0.3rem; /* nuevo padding interno */
+}
+
+.mobile-menu-item {
+    display: flex;
+    align-items: center;
+    padding: 0.45rem 0.7rem;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #1D5749; /* coherente con textos verdes */
+    background-color: #d7e6dd; /* igual que el menú */
+    border: 1px solid #a3c6b4; /* borde sutil y en tono verde */
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    font-size: 0.95rem;
+    margin: 0.5rem 0;
+}
+
+.mobile-menu-item:hover {
+    background-color: #b6dcc9; /* mismo que .menuSelectedColor */
+    border-color: #89b7a1; /* un verde un poco más oscuro al pasar el mouse */
+}
+
+.tooltip-arrow.left {
+    position: absolute;
+    top: -11px;
+    left: 12px;
+    width: 0;
+    height: 0;
+    border-left: 11px solid transparent;
+    border-right: 11px solid transparent;
+    border-bottom: 11px solid #A48BD3;
+}
+
+.tooltip-arrow.left::after {
+    content: "";
+    position: absolute;
+    top: 1px;
+    left: -10px;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #e3f1eb;
+}
 
 /*Estilos de botones*/
 .btn-login {
@@ -374,6 +486,67 @@
     font-weight: bold;
 }
 
+/* Estilos de tabla para móvil*/
+.budget-header-mobile {
+    background-color: #b6dcc9;
+    padding: 0.75rem;
+    border-radius: 0.75rem;
+    color: #1D5749;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.budget-header-mobile-second {
+    background-color: #cabedf !important;
+    color: #3B2E5A !important;
+}
+
+.budget-card-mobile {
+    background-color: #fdfdfd;
+    border: 2px solid #a3c6b4;
+    border-radius: 12px;
+    padding: 0.7rem 1rem 1rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    transition: all 0.2s ease;
+}
+
+.budget-card-header {
+    text-align: center;
+    font-weight: bold;
+    color: #2E8A75;
+    border-bottom: 1px solid #a3c6b4;
+    padding-bottom: 0.1rem;
+}
+
+.budget-card-body {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.budget-info-item {
+    display: flex;
+    align-items: center;
+    flex: 1 1 45%;
+    min-width: 180px;
+    font-size: 0.95rem;
+}
+
+.budget-card-actions {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.cardInputs {
+    max-height: 2rem !important;
+    font-size: 0.9rem !important;
+}
+
 
 /*Estilos de filtros*/
 .filterDiv {
@@ -458,8 +631,22 @@
     margin-right: 0.4rem;
 }
 
-
 /*Estilos de errores iniciales*/
 .errorInitialSection {
     width: 95%;
 }
+
+/*Estilos de la página de carga */
+.fade-in-delay {
+    opacity: 0;
+    animation: fadeIn 1s ease-in forwards;
+    animation-delay: 1s;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+

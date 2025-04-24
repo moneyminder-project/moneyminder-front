@@ -19,6 +19,7 @@ import {AuthProvider, useAuth} from "./contexts/AuthContext.jsx";
 import {useEffect, useRef, useState} from "react";
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import {useIsMenuMobile} from "./hooks/responsiveHooks.jsx";
 
 
 function AppLayout() {
@@ -28,7 +29,10 @@ function AppLayout() {
     const tooltipRef = useRef(null);
     const buttonRef = useRef(null);
     const navigate = useNavigate();
-
+    const isMenuMobile = useIsMenuMobile();
+    const [buttonMenuActive, setButtonMenuActive] = useState(false);
+    const mobileMenuRef = useRef(null);
+    const mobileMenuButtonRef = useRef(null);
 
     const changeTooltipStatus = () => setTooltipActive(!tooltipActive);
     const goToModifiedUserInfo = () => {
@@ -74,6 +78,16 @@ function AppLayout() {
         ) {
             setTooltipActive(false);
         }
+
+        if (
+            mobileMenuRef.current &&
+            !mobileMenuRef.current.contains(event.target) &&
+            mobileMenuButtonRef.current &&
+            !mobileMenuButtonRef.current.contains(event.target)
+        ) {
+            setButtonMenuActive(false);
+        }
+
     };
 
     useEffect(() => {
@@ -83,20 +97,66 @@ function AppLayout() {
         };
     }, []);
 
+    useEffect(() => {
+        if (!isMenuMobile) {
+            setButtonMenuActive(false);
+        }
+    }, [isMenuMobile]);
+
     return (
         <div className="appContainer d-flex flex-column min-vh-100">
             <div className="appHeader p-3 d-flex align-items-center justify-content-between">
+                {
+                    isMenuMobile && (
+                        <>
+                            <div className="position-relative" ref={mobileMenuButtonRef}>
+                                <div className="mobile-menu-button" onClick={() => setButtonMenuActive(!buttonMenuActive)}>
+                                    <FontAwesomeIcon className="fa-lg border-1" icon={['fas', 'bars']} />
+                                </div>
+
+                                {buttonMenuActive && (
+                                    <div className="mobile-tooltip-menu" ref={mobileMenuRef}>
+                                        <div className="tooltip-arrow left" />
+                                        <div className="tooltip-content px-2 py-1">
+                                            <Link to="/" className="mobile-menu-item" onClick={() => setButtonMenuActive(false)}>
+                                                <FontAwesomeIcon icon={['fas', 'home']} className="me-2" />
+                                                Inicio
+                                            </Link>
+                                            <Link to="/records" className="mobile-menu-item mt-1" onClick={() => setButtonMenuActive(false)}>
+                                                <FontAwesomeIcon icon={['fas', 'money-bill-wave']} className="me-2" />
+                                                Gastos e Ingresos
+                                            </Link>
+                                            <Link to="/budgets" className="mobile-menu-item mt-1" onClick={() => setButtonMenuActive(false)}>
+                                                <FontAwesomeIcon icon={['fas', 'wallet']} className="me-2" />
+                                                Presupuestos
+                                            </Link>
+                                            <Link to="/requests" className="mobile-menu-item mt-1" onClick={() => setButtonMenuActive(false)}>
+                                                <FontAwesomeIcon icon={['fas', 'users']} className="me-2" />
+                                                Solicitudes
+                                            </Link>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        </>
+                    )
+                }
                 <Link to="/" className="text-decoration-none text-reset">
                     <div className="d-flex align-items-center justify-content-start">
-                        <img src={AppLogo} className="appLogoSize" alt="Logo" />
-                        <span className="titleFormat ms-3">{AppTexts.appName}</span>
+                        {!isMenuMobile && (
+                            <img src={AppLogo} className="appLogoSize" alt="Logo" />
+                        )}
+
+                        <span className={`${isMenuMobile ? 'titleFormatSmall' : 'titleFormat ms-3'}`} >{AppTexts.appName}</span>
                     </div>
                 </Link>
                 <div className="d-flex align-items-center justify-content-end position-relative">
-                    <div className={`userNameOptionFormat text-reset p-2 ${tooltipActive ? 'userButtonActive' : ''}`}
+                    <div className={`userNameOptionFormat text-reset align-items-center p-2 ${tooltipActive ? 'userButtonActive' : ''}`}
                          onClick={changeTooltipStatus} ref={buttonRef}>
-                        <span className="userNameHeaderFormat me-2"> {userName || 'Usuario'}</span>
-                        <FontAwesomeIcon className="fa-xl" icon={['fas', 'circle-user']} style={{ color: '#6C4BA5' }} />
+                        {!isMenuMobile && (
+                            <span className="userNameHeaderFormat me-2"> {userName || 'Usuario'}</span>
+                        )}
+                        <FontAwesomeIcon  className={`fa-${isMenuMobile ? '2xl' : 'xl'}`} icon={['fas', 'circle-user']} style={{ color: '#6C4BA5' }} />
                     </div>
                     {tooltipActive && (
                         <div className="custom-tooltip" ref={tooltipRef}>
@@ -117,7 +177,10 @@ function AppLayout() {
             </div>
 
             <div className="d-flex flex-grow-1">
-                <Menu />
+                {!isMenuMobile && (
+                    <Menu />
+                )}
+
                 <main className="flex-grow-1 overflow-auto w-100">
                     <Routes>
                         <Route path="/" element={<Home />} />
@@ -173,7 +236,7 @@ function App() {
 function AppRouter() {
     const { isAuthenticated, isLoading } = useAuth();
 
-    if (isLoading) return <div>Cargando...</div>; // O un spinner más bonito si quieres
+    if (isLoading) return <div>Cargando...</div>;
 
     return (
         <Router>
