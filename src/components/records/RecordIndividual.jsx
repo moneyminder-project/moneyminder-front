@@ -603,6 +603,16 @@ function RecordIndividual() {
                                                     )}
                                                 </div>
                                             ) : (
+                                                !budgets.length ? (
+                                                    <div className="filterInput align-items-center p-0 disabledDropdown">
+                                                            <input
+                                                                type="text"
+                                                                className="filterInput appInput form-control"
+                                                                disabled={true}
+                                                                value='No hay presupuestos'
+                                                            />
+                                                    </div>
+                                                ) : (
                                                 <Dropdown className={`filterInput appInput ${(!editMode || !budgets.length) ? 'disabledDropdown' : ''}`} autoClose="outside" align="start">
                                                     <Dropdown.Toggle
                                                         as="div"
@@ -668,7 +678,7 @@ function RecordIndividual() {
                                                         })}
                                                     </Dropdown.Menu>
                                                 </Dropdown>
-                                            )}
+                                            ))}
 
                                         </div>
 
