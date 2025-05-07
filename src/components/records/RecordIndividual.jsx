@@ -106,6 +106,8 @@ function RecordIndividual() {
                     const budgetsData = budgetsResponse.respuesta || [];
                     setBudgets(budgetsData);
 
+                    console.log(budgetsData);
+
                     const map = new Map();
                     budgetsData.forEach(budget => {
                         map.set(budget.id, budget);
@@ -601,24 +603,24 @@ function RecordIndividual() {
                                                     )}
                                                 </div>
                                             ) : (
-                                                <Dropdown className={`filterInput appInput ${!editMode ? 'disabledDropdown' : ''}`} autoClose="outside" align="start">
+                                                <Dropdown className={`filterInput appInput ${(!editMode || !budgets.length) ? 'disabledDropdown' : ''}`} autoClose="outside" align="start">
                                                     <Dropdown.Toggle
                                                         as="div"
-                                                        className={`dropdownInputToggle d-flex justify-content-between align-items-center ${!editMode ? 'disabledDropdown' : ''}`}
+                                                        className={`dropdownInputToggle d-flex justify-content-between align-items-center ${(!editMode || !budgets.length) ? 'disabledDropdown' : ''}`}
                                                         style={{ backgroundColor: "white", cursor: "pointer" }}
                                                         disabled={!budgets.length}
                                                     >
-                                            <span>
-                                                {
-                                                    record.budgets.length === budgets.length && record.budgets.length !== 1
-                                                        ? "Todos seleccionados"
-                                                        : record.budgets.length === 1
-                                                            ? budgets.find(b => b.id === record.budgets[0])?.name || "1 seleccionado"
-                                                            : record.budgets.length > 1
-                                                                ? `${record.budgets.length} seleccionados`
-                                                                : "Seleccionar presupuestos"
-                                                }
-                                            </span>
+                                                    <span>
+                                                        {
+                                                            record.budgets.length === budgets.length && record.budgets.length !== 1
+                                                                ? "Todos seleccionados"
+                                                                : record.budgets.length === 1
+                                                                    ? budgets.find(b => b.id === record.budgets[0])?.name || "1 seleccionado"
+                                                                    : record.budgets.length > 1
+                                                                        ? `${record.budgets.length} seleccionados`
+                                                                        : "Seleccionar presupuestos"
+                                                        }
+                                                    </span>
                                                     </Dropdown.Toggle>
                                                     <Dropdown.Menu className="w-100">
                                                         <Dropdown.Item
