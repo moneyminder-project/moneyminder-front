@@ -476,7 +476,7 @@ function Requests() {
                                                         Presupuesto
                                                     </th>
                                                     <th className="text-center" style={{width: '20%'}}>
-                                                        Fecha
+                                                        Fecha Solicitud
                                                     </th>
                                                     <th className="text-center" style={{width: '20%'}}>
                                                         Estado

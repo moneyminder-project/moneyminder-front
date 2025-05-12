@@ -51,7 +51,11 @@ function BudgetIndividual() {
     const isLineButtonsInTable = useIsLineButtonsInTable();
 
     const gotoRegister = () => {
-        navigate(`/record`);
+        if (budget.id && budget.id.length > 0) {
+            navigate(`/record/budget/${budget.id}`);
+        } else {
+            navigate(`/record`);
+        }
     }
 
     const goToRegisterWithId = (id) => {

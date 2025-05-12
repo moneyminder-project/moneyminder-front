@@ -20,7 +20,7 @@ import {
 
 function RecordIndividual() {
     useTitleWithAppName("Ingreso / Gasto");
-    const { recordId: recordIdByParam } = useParams();
+    const { recordId: recordIdByParam, budgetId: budgetIdByParam } = useParams();
     const { userName } = useAuth();
     const navigate = useNavigate();
     const [loadingDetails, setLoadingDetails] = useState(true);
@@ -106,14 +106,24 @@ function RecordIndividual() {
                     const budgetsData = budgetsResponse.respuesta || [];
                     setBudgets(budgetsData);
 
-                    console.log(budgetsData);
-
                     const map = new Map();
                     budgetsData.forEach(budget => {
                         map.set(budget.id, budget);
                     });
 
                     setBudgetMap(map);
+
+                    if (!recordIdByParam && budgetIdByParam) {
+                        const exists = budgetsData.some(b => b.id === budgetIdByParam);
+                        if (exists) {
+                            setEditMode(true);
+                            setRecord((prev) => ({
+                                ...prev,
+                                budgets: [budgetIdByParam],
+                            }));
+                        }
+                    }
+
                 } else {
                     setErrorInitialBudgets('No se han podido obtener los presupuestos del usuario.')
                 }
@@ -145,7 +155,7 @@ function RecordIndividual() {
             return;
         }
 
-        if (!record.money || !record.money.length) {
+        if (!record.money) {
             setError('El registro debe tener nombre, importe y fecha de registro.');
             return;
         }

@@ -187,6 +187,7 @@ function AppLayout() {
                         <Route path="/records" element={<Records />} />
                         <Route path="/record" element={<RecordIndividual />} />
                         <Route path="/record/:recordId" element={<RecordIndividual />} />
+                        <Route path="/record/budget/:budgetId" element={<RecordIndividual />} />
                         <Route path="/budgets" element={<Budgets />} />
                         <Route path="/budget" element={<BudgetIndividual />} />
                         <Route path="/budget/:budgetId" element={<BudgetIndividual />} />
