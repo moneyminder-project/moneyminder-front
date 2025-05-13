@@ -1,0 +1,38 @@
+stages:
+  - test
+  - build
+  - docker
+
+variables:
+  IMAGE_NAME: smartpad/money-minder
+
+test:
+  stage: test
+  image: node:18
+  script:
+    - npm install
+    - npm run test
+
+build:
+  stage: build
+  image: node:18
+  script:
+    - npm ci
+    - npm run build
+
+docker:
+  stage: docker
+  image: docker:24.0.2
+  services:
+    - docker:dind
+  before_script:
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  script:
+    - |
+      if [ "$CI_COMMIT_REF_NAME" == "main" ]; then
+        TAG="$CI_PROJECT_NAME"
+      else
+        TAG="$CI_PROJECT_NAME-dev"
+      fi
+      docker build -t $IMAGE_NAME:$TAG .
+      docker push $IMAGE_NAME:$TAG
